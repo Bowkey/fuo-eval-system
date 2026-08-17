@@ -1,0 +1,37 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid && !data.exists()"
+      }
+    },
+
+    "courses": {
+      ".read": "auth != null",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'hod'"
+    },
+
+    "evaluationQuestions": {
+      ".read": "auth != null",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'hod'"
+    },
+
+    "evaluations": {
+      "$courseId": {
+        ".read": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'lecturer' || root.child('users').child(auth.uid).child('role').val() === 'hod')",
+        ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'student'",
+        "$evaluationId": {
+          ".validate": "!newData.hasChild('uid') && !newData.hasChild('studentId') && !newData.hasChild('name') && !newData.hasChild('matricNumber')"
+        }
+      }
+    },
+
+    "evalRecords": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    }
+  }
+}
