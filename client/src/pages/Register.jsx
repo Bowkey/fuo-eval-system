@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const MATRIC_REGEX = /^[A-Za-z]{2,4}\/\d{2,4}\/\d{3,5}$/; // e.g. CSC/2021/0142
+const MATRIC_REGEX = /^[A-Za-z]{2,5}\/\d{2}\/[A-Za-z]{2,5}\/\d{3,5}$/; // e.g. FUO/22/CSI/18911
 const STAFF_REGEX = /^[A-Za-z]{2,5}\/STF\/\d{3,5}$/i; // e.g. FUO/STF/0089
 
 export default function Register() {
